@@ -1,0 +1,80 @@
+.header {
+  height: 80px;
+  background-color: #e5e4e2;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+  font-family: sans-serif !important;
+  .row {
+    height: 80px;
+  }
+
+  .align-justify {
+    font-size: xx-large;
+    padding-top: 25px;
+    padding-left: 15px;
+  }
+
+  .ui.inline.dropdown.custom-dropdown {
+    font-size: medium;
+  }
+
+  .ui.dropdown .menu > .item {
+    font-size: medium;
+    line-height: 15px;
+  }
+
+  .ui.inline.dropdown .menu {
+    margin-top: 10px;
+  }
+}
+
+.side-bar {
+  .ui.thin.left.sidebar {
+    font-family: sans-serif !important;
+    width: 250px;
+  }
+
+  .ui.menu {
+    font-size: medium;
+  }
+
+  .ui.inverted.icon.menu .item {
+    color: #50c878;
+  }
+}
+
+.main-layout {
+  width: 412px !important;
+  overflow: "auto";
+  font-family: sans-serif !important;
+  position: relative !important;
+
+  .login-layout {
+    .ui.grid > .row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ui.input > input {
+      font-size: medium;
+      width: 300px;
+    }
+
+    .ui.button {
+      font-size: medium;
+      width: 300px;
+      border-radius: 10px;
+      //background-color: #50c878;
+    }
+
+    .ui.form .field {
+      margin: 0px;
+    }
+  }
+}
+
+.action-button {
+  position: fixed !important;
+  right: 20px;
+  top: 600px; /* Adjust the distance from the bottom as needed */
+  z-index: 1000000000;
+}
