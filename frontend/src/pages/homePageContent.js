@@ -3,7 +3,7 @@ import Header from "../components/header";
 import SkinDiseaseDetection from "../containers/imageController/skinDiseaseDetection";
 import OntologyDataRetrieval from "../containers/ontologyController/ontologyDataRetrieval";
 import Chatbot from "../containers/chatbotController/chatbot";
-import { Button } from "semantic-ui-react";
+// import { Button } from "semantic-ui-react";
 
 const HomePageContent = ({ handelSideBar = null }) => {
   const farmerDetails = {
