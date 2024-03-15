@@ -24,7 +24,7 @@ const ImageDiagnosisInterface = () => {
                 setSelectedFile(null);
                 return; // Stop further processing
             }
-    
+
             const reader = new FileReader();
             reader.onloadend = () => {
                 setImagePreviewUrl(reader.result);
@@ -36,7 +36,7 @@ const ImageDiagnosisInterface = () => {
             setSelectedFile(null);
         }
     };
-    
+
 
     const handleSubmit = async () => {
         if (!selectedFile) {
@@ -57,28 +57,49 @@ const ImageDiagnosisInterface = () => {
                 method: 'POST',
                 body: formData,
             });
-
+    
             if (response.ok) {
                 const result = await response.json();
+                // Retrieve cattle information from localStorage
+                const cattle = localStorage.getItem('selectedCattle');
+                // Check if cattle information exists
+                if (cattle) {
+                    result.cattle = cattle; // Add cattle information to the result object
+                } else {
+                    console.error('Cattle information is not found in localStorage');
+                    // Handle the case where cattle information is missing
+                }
+    
                 setPrediction(result);
+    
+                // Send the prediction along with cattle information to the server for saving to MongoDB
+                fetch('http://127.0.0.1:5001/api/save_prediction', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(result),
+                })
+                    .then(response => response.json())
+                    .then(data => console.log('Prediction saved:', data))
+                    .catch((error) => {
+                        console.error('Error saving prediction:', error);
+                    });
             } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'Failed to predict. Please try again...',
                 });
-                //alert('Failed to predict. Please try again.');
             }
         } catch (error) {
             console.error('Error during prediction:', error);
-
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
                 text: 'An error occurred. Please try again..',
             });
-            //alert('An error occurred. Please try again.');
-        }finally {
+        } finally {
             setIsLoading(false); // End loading
         }
     };
@@ -94,10 +115,10 @@ const ImageDiagnosisInterface = () => {
                 )}
             </div>
             {isLoading && (
-            <div className="flex justify-center items-center">
-                <div className="loader"></div>
-            </div>
-        )}
+                <div className="flex justify-center items-center">
+                    <div className="loader"></div>
+                </div>
+            )}
             <div>
                 {prediction && (
                     <>
